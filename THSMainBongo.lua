@@ -575,7 +575,7 @@ while loadData() == false do
 end
 
 -- GUI
-local KavoLibrary = loadstring(game:HttpGet(https://raw.githubusercontent.com/BongoCaat/THSBongo/main/THSBongoKavoUI.lua"))()
+local KavoLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/BongoCaat/THSBongo/main/THSBongoKavoUI.lua"))()
 
 local window = KavoLibrary.CreateLib("Treasure Hunt Simulator Remastered By BongoCaat#5645", "DarkTheme")
 
