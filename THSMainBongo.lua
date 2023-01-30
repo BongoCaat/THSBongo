@@ -3,8 +3,14 @@ repeat wait(3) until game:IsLoaded()
 if game.PlaceId ~= 1345139196 then
     game.Players.LocalPlayer:Kick("This script only works on Treasure Hunt Simulator!")
 end
-if getgenv().thunt_gui_executed then
+--[[if getgenv().thunt_gui_executed then
     game.Players.LocalPlayer:Kick("GUI executed twice!")
+end]]
+
+for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+    if v:IsA("TextLabel") and v.Text:find("Treasure Hunt Simulator Remastered By BongoCaat#5645") then
+        v.Parent.Parent:Destroy()
+    end
 end
 
 -- Services
@@ -30,7 +36,7 @@ getgenv().cheat_settings.autobuycrates = false
 getgenv().cheat_settings.autoopencrates = false
 --getgenv().cheat_settings.freegamepass = false
 getgenv().cheat_settings.gcollide = true
-getgenv().cheat_settings.autoinvisible = false
+--getgenv().cheat_settings.autoinvisible = false
 getgenv().cheat_settings.walkspeed = false
 getgenv().cheat_settings.jumppower = false
 getgenv().cheat_settings.autoserverhop = false
@@ -189,7 +195,7 @@ end
 -- Cheat functions
 updatePlayerData()
 
-local function goInvisible()
+--[[local function goInvisible()
     local clone = getgenv().player_data["character"]:WaitForChild("LowerTorso"):WaitForChild("Root"):Clone()
     local before_tp = getgenv().player_data["root"].CFrame 
 
@@ -211,7 +217,7 @@ local function goInvisible()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = before_tp
         part:Destroy()
     end)
-end
+end]]
 
 local function serverHop(min_players, max_players)
     local servers = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
@@ -292,8 +298,8 @@ end
 local function getFirstBlock()
     local children = sandblocks:GetChildren()
     for i,v in pairs(children) do
-        if v:FindFirstChild("Rock") == nil and v:FindFirstChild("Chest") == nil then
-            return v
+        if v:FindFirstChild("Rock") == nil or v:FindFirstChild("Chest") == nil then
+            --return v
         end
     end
     return nil
@@ -316,7 +322,7 @@ end
 
 local function checkMaxBackpack()
     local amount = getgenv().player_data["player"].PlayerGui.Gui.Buttons.Sand.Amount--:WaitForChild("PlayerGui"):WaitForChild("Gui"):WaitForChild("Buttons"):WaitForChild("Sand"):WaitForChild("Amount")
-    local backpack_status = strToVec2(amount.Text, " / ")
+    local backpack_status = strToVec2(Amount.Text, " / ")
     return backpack_status[1] == backpack_status[2]
 end
 
@@ -530,12 +536,12 @@ end
 
 -- Cheat event functions
 -- Auto character update
-getgenv().player_data["player"].CharacterAdded:Connect(function(char)
+--[[getgenv().player_data["player"].CharacterAdded:Connect(function(char)
     updatePlayerData()
     if getgenv().cheat_settings.autoinvisible then
         goInvisible()
     end
-end)
+end)]]
 
 -- Anti afk
 getgenv().player_data["player"].Idled:Connect(function()
@@ -582,7 +588,7 @@ local window = KavoLibrary.CreateLib("Treasure Hunt Simulator Remastered By Bong
 -- Main tab
 local main_tab = window:NewTab("Main")
 local autofarm_section = main_tab:NewSection("Main")
-autofarm_section:NewLabel("Autofarm Chests OP")
+autofarm_section:NewLabel("Autofarm Chests (OP)")
 autofarm_section:NewToggle("On/Off", "Teleports to selected Chests", function(state)
     getgenv().cheat_settings.autochest = state
 end)
@@ -757,14 +763,14 @@ other_section:NewButton("Kill player", "Kills the player", function()
     getgenv().player_data["humanoid"].Health = 0
 end)
 
-other_section:NewToggle("Auto Invisible", "Makes you automatically go invisible", function(state)
+--[[other_section:NewToggle("Auto Invisible", "Makes you automatically go invisible", function(state)
     getgenv().cheat_settings.autoinvisible = state
     if getgenv().cheat_settings.autoinvisible then
         pcall(function()
             goInvisible()
         end)
     end
-end)
+end)]]
 
 other_section:NewToggle("Noclip", "Noclip", function(state)
     getgenv().cheat_settings.gcollide = not state
@@ -788,7 +794,7 @@ end)
 
 -- Saving data
 spawnThread(function()
-    while wait(15) do
+    while wait(10) do
         if getgenv().cheat_settings.savesettings then
             saveData()
         end
